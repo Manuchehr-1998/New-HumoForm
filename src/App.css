@@ -1,0 +1,18 @@
+.form{
+  width: 90%;
+  margin: auto;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+input {
+  border: 1px solid rgb(0, 0, 0);
+  padding: 5px;
+}
+
+.invalid {
+  border: 1px solid red;
+}
+
+/* Add any additional styles as needed */
