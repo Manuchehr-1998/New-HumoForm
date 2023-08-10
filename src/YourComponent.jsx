@@ -67,12 +67,13 @@ const YourComponent = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
+    inputs.age = parseInt(inputs.age); 
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform any necessary form submission logic
-
+    inputs.age = parseInt(inputs.age);
     // Check if there are any errors
     const hasErrors = Object.values(errors).some((error) => error);
     if (hasErrors) {
@@ -92,6 +93,7 @@ const YourComponent = () => {
     // Show alert indicating successful submission
     alert("Form submitted successfully!");
   };
+  console.log("age",typeof(inputs.lastname));
 
   return (
     <div className="form">
@@ -101,6 +103,7 @@ const YourComponent = () => {
           <input
             type="text"
             name="firstname"
+            required
             value={inputs.firstname}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -110,7 +113,7 @@ const YourComponent = () => {
               errors.firstname ? "invalid" : ""
             }`}
           />
-          {errors.firstname && (
+          {errors.firstname  && (
             <p className="error">The firstname you entered is not valid</p>
           )}
           {inputs.firstname && !errors.firstname && (
@@ -122,6 +125,7 @@ const YourComponent = () => {
           <input
             type="text"
             name="lastname"
+            required
             value={inputs.lastname}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -143,6 +147,7 @@ const YourComponent = () => {
           <input
             type="number"
             name="age"
+            required
             value={inputs.age}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -167,6 +172,7 @@ const YourComponent = () => {
           <input
             type="tel"
             name="phone"
+            required
             value={inputs.phone}
             onChange={handleChange}
             onBlur={handleBlur}
