@@ -91,9 +91,8 @@ const YourComponent = () => {
     });
 
     // Show alert indicating successful submission
-    alert("Form submitted successfully!");
+    console.table("Form submitted successfully!",inputs);
   };
-  console.log("age",typeof(inputs.lastname));
 
   return (
     <div className="form">
