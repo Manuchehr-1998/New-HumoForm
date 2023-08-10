@@ -32,7 +32,7 @@ const YourComponent = () => {
     } else if (name === "age") {
       const ageValue = parseInt(value); // Преобразуем значение в число
 
-      if (ageValue <= 0 || isNaN(ageValue)) {
+      if (ageValue <= 0 || isNaN(ageValue) || ageValue > 100) {
         // Проверяем на отрицательное число или не число
         setInputs((prevInputs) => ({ ...prevInputs, [name]: "" })); // Сбрасываем значение инпута обратно на пустую строку
         setErrors((prevErrors) => ({ ...prevErrors, [name]: true }));
@@ -41,7 +41,7 @@ const YourComponent = () => {
         setErrors((prevErrors) => ({ ...prevErrors, [name]: false }));
       }
     } else if (name === "phone") {
-      const regex = /^\d{10}$/;
+      const regex = /^\d{9}$/;
       if (!regex.test(value)) {
         setErrors((prevErrors) => ({ ...prevErrors, [name]: true }));
         console.log(`${name} is invalid`);
@@ -105,11 +105,19 @@ const YourComponent = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             onFocus={handleFocus}
-            className={errors.firstname ? "invalid" : ""}
-          />{" "}
-        </div>{" "}
+            className={`
+              ${inputs.firstname && !errors.firstname ? "success" : ""} ${
+              errors.firstname ? "invalid" : ""
+            }`}
+          />
+          {errors.firstname && (
+            <p className="error">The firstname you entered is not valid</p>
+          )}
+          {inputs.firstname && !errors.firstname && (
+            <p className="success">The firstname you entered looks good</p>
+          )}
+        </div>
         <div>
-          {" "}
           <label htmlFor="lastname">Last Name</label>{" "}
           <input
             type="text"
@@ -118,12 +126,20 @@ const YourComponent = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             onFocus={handleFocus}
-            className={errors.lastname ? "invalid" : ""}
-          />{" "}
-        </div>{" "}
+            className={`
+              ${inputs.lastname && !errors.lastname ? "success" : ""} ${
+              errors.lastname ? "invalid" : ""
+            }`}
+          />
+          {errors.lastname && (
+            <p className="error">The lastname you entered is not valid</p>
+          )}
+          {inputs.lastname && !errors.lastname && (
+            <p className="success">The lastname you entered looks good</p>
+          )}
+        </div>
         <div>
-          {" "}
-          <label htmlFor="age">Age</label>{" "}
+          <label htmlFor="age">Age</label>
           <input
             type="number"
             name="age"
@@ -131,12 +147,23 @@ const YourComponent = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             onFocus={handleFocus}
-            className={errors.age ? "invalid" : ""}
-          />{" "}
-        </div>{" "}
+            className={`
+            ${inputs.age && !errors.age ? "success" : ""} ${
+              errors.age ? "invalid" : ""
+            }`}
+          />
+          {errors.age && (
+            <p className="error">
+              Please note that the age field only accepts digits and values
+              between 1 and 100.
+            </p>
+          )}
+          {inputs.age && !errors.age && (
+            <p className="success">The age you entered looks good</p>
+          )}
+        </div>
         <div>
-          {" "}
-          <label htmlFor="phone">Phone</label>{" "}
+          <label htmlFor="phone">Phone</label>
           <input
             type="tel"
             name="phone"
@@ -144,23 +171,44 @@ const YourComponent = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             onFocus={handleFocus}
-            className={errors.phone ? "invalid" : ""}
-          />{" "}
-        </div>{" "}
+            className={`
+            ${inputs.phone && !errors.phone ? "success" : ""} ${
+              errors.phone ? "invalid" : ""
+            }`}
+          />
+          {errors.phone && (
+            <p className="error">
+              Please correctly display the fields of the bodies will take the
+              sense of 9 ciphers from 1 to 9
+            </p>
+          )}
+          {inputs.phone && !errors.phone && (
+            <p className="success">The phone you entered looks good</p>
+          )}
+        </div>
         <div>
-          {" "}
-          <label htmlFor="email">Email</label>{" "}
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             name="email"
+            required
             value={inputs.email}
             onChange={handleChange}
             onBlur={handleBlur}
             onFocus={handleFocus}
-            className={errors.email ? "invalid" : ""}
-          />{" "}
-        </div>{" "}
-        <button type="submit">Submit</button>{" "}
+            className={`
+              ${inputs.email && !errors.email ? "success" : ""} ${
+              errors.email ? "invalid" : ""
+            }`}
+          />
+          {errors.email && (
+            <p className="error">The email you entered is not valid</p>
+          )}
+          {inputs.email && !errors.email && (
+            <p className="success">The email you entered looks good</p>
+          )}
+        </div>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
